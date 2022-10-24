@@ -1,0 +1,32 @@
+{% extends 'layouts/base.html' %} {% block user %}
+<h1 class="ff-heading fs-500">{{user.username}}</h1>
+{% endblock %} {% block content %}
+<h1 class="fs-700">Vehiculos Registrados de {{propietario}}</h1>
+
+<section class="vehiculos-section">
+  <div class="grid | vehiculos-container">
+    {% for vehiculo in vehiculos %}
+    <article
+      class="article-container | flex f-direction-column justify-center align-center"
+    >
+      <h2>Carro #{{vehiculo.id}}</h2>
+      <p>{{vehiculo.propietario}}</p>
+      <div class="update-vehiculo-container">
+        <a href="{% url 'update_vehiculo' vehiculo.id %}"
+          ><span class="icon-svg update-icon"></span>
+        </a>
+      </div>
+      <div>
+        <h1 class="letter-spacing-2 clr-almost-red ff-heading fs-700">
+          {{vehiculo.marca}}
+        </h1>
+        <p class="clr-black ff-heading">{{vehiculo.placa}}</p>
+      </div>
+      <p>{{vehiculo.modelo}} {{vehiculo.año}}</p>
+      <span class="clr-soft-black">{{vehiculo.color}}</span>
+    </article>
+
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

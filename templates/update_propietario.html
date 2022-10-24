@@ -1,0 +1,43 @@
+{% extends 'layouts/base.html' %} {% block user %}
+<h1 class="ff-heading fs-500">{{user.username}}</h1>
+{% endblock %} {% block content %}
+
+<h1 class="fs-700">Actualizar propietario</h1>
+
+<section class="vehiculos-section">
+  <div class="form-container">
+    {% for message in messages %}
+    <div>
+      <h5>{{message}}</h5>
+    </div>
+    {% endfor %}
+    <form method="POST" class="flex formulario">
+      {% csrf_token %} {{form}}
+      <button class="button-update">Actualizar propietario</button>
+    </form>
+    <div>
+      <form
+        action="{% url 'delete_propietario' propietario.id %}"
+        method="POST"
+      >
+        {% csrf_token %}
+        <button class="button-delete">
+          <span class="text fs-400">Borrar Propietario</span
+          ><span class="icon"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"
+              ></path></svg
+          ></span>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

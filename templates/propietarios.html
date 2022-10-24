@@ -1,0 +1,36 @@
+{% extends 'layouts/base.html' %} {% block user %}
+<h1 class="ff-heading fs-500">{{user.username}}</h1>
+{% endblock %} {% block content %}
+<h1 class="fs-700">Propietarios Registrados</h1>
+
+<section class="vehiculos-section">
+  <div class="grid | vehiculos-container">
+    {% for propietario in propietarios %}
+    <article
+      class="article-container | flex f-direction-column justify-center align-center"
+    >
+      <h2>Propietario #{{propietario.id}}</h2>
+      <div class="update-vehiculo-container">
+        <a href="{% url 'update_propietario' propietario.id %}"
+          ><span class="icon-svg update-icon"></span>
+        </a>
+      </div>
+      <div>
+        <h1 class="letter-spacing-2 clr-almost-red ff-heading fs-700">
+          {{propietario.nombre_apellidos}}
+        </h1>
+        <p class="clr-black ff-heading">{{propietario.documento}}</p>
+      </div>
+      <span class="clr-soft-black">{{propietario.telefono}}</span>
+      <span class="clr-soft-black">{{propietario.direccion}}</span>
+      <a
+        class="clr-soft-red"
+        href="{% url 'vehiculo_propietario' propietario.id %}"
+        >Ver Vehiculos</a
+      >
+    </article>
+
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

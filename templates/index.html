@@ -1,0 +1,26 @@
+{% extends 'layouts/base.html' %} {% block user %}
+<h1 class="ff-heading fs-500">{{user.username}}</h1>
+{% endblock %} {% block content %}
+<h1 class="fs-700">Home</h1>
+
+<section class="vehiculos-section">
+  <div class="grid | vehiculos-container">
+    <article
+      class="article-container | flex f-direction-column justify-center align-center"
+    >
+      <div>
+        <h2>Propietarios registrados</h2>
+        <p>{{propietarios_len}}</p>
+      </div>
+    </article>
+    <article
+      class="article-container | flex f-direction-column justify-center align-center"
+    >
+      <div>
+        <h2>Vehiculos registrados</h2>
+        <p>{{vehiculos_len}}</p>
+      </div>
+    </article>
+  </div>
+</section>
+{% endblock %}

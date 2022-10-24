@@ -1,0 +1,48 @@
+{% extends 'layouts/sign.html' %} {% block content %} {% load static %}
+
+<section class="form-section">
+  <div class="flex | form-container">
+    <header class="ff-heading | form-header-container">
+      <h1 class="fs-800 clr-almost-red">Bienvenido</h1>
+      <p class="fs-600 clr-soft-black">Porfavor ingrese a su cuenta!</p>
+    </header>
+    {% for message in messages %}
+    <div>
+      <h5>{{message}}</h5>
+    </div>
+    {% endfor %}
+    <form method="POST" class="flex form-sign">
+      {% csrf_token %}
+      <label class="inp" for="username">
+        <input name="username" placeholder="" id="inp" type="text" />
+        <span class="label">Usuario</span>
+        <span class="focus-bg"></span>
+      </label>
+      <label class="inp" for="password">
+        <input name="password" placeholder="" id="inp" type="password" />
+        <span class="label">Contraseña</span>
+        <span class="focus-bg"></span>
+      </label>
+      <button class="button-sign fs-600">
+        Iniciar Sesion
+        <div class="arrow-wrapper">
+          <div class="arrow"></div>
+        </div>
+      </button>
+    </form>
+    <footer class="sign-footer">
+      <p class="fs-600">
+        Aún no estas registrado?.
+        <a href="/signin" class="clr-almost-red"> Crea tú cuenta ahora </a>
+      </p>
+    </footer>
+  </div>
+</section>
+
+<section>
+  <div class="sign-image-container">
+    <img src="{% static 'assets/images/login.png' %}" alt="login image" />
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,86 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
+    <title>Inventario App</title>
+  </head>
+  <body>
+    <main class="flex main-grid-container">
+      <aside class="aside-container flex f-direction-column align-center">
+        <header
+          class="aside-header-container flex f-direction-column align-center"
+        >
+          <a href="/">
+            <h1 class="fs-800 ff-heading clr-almost-red">
+              <span class="sm-none">VehicuApp</span>
+              <span class="ls-none">VA</span>
+            </h1>
+          </a>
+          <div class="avatar-container | flex f-direction-column">
+            <div class="avatar-container-img">
+              <img
+                src="{% static 'assets/images/avatar.png' %}"
+                alt=""
+                srcset=""
+              />
+            </div>
+            <p class="clr-soft-black sm-none">Bienvenido</p>
+            {% block user %} {% endblock %}
+          </div>
+        </header>
+        <nav class="aside-navbar-container">
+          <ul class="flex f-direction-column align-center">
+            <li>
+              <a href="/propietarios/" class="clr-almost-red">
+                <div class="icon-container | flex align-center">
+                  <span class="icon-svg propietarios-icon"></span
+                  ><span class="sm-none fs-400">Propietarios</span>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="/propietario/create" class="clr-almost-red">
+                <div class="icon-container | flex align-center">
+                  <span class="icon-svg add-propietario-icon"></span
+                  ><span class="sm-none fs-400">Agregar propietario</span>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="/vehiculos/" class="clr-almost-red"
+                ><div class="icon-container | flex align-center">
+                  <span class="icon-svg my-vehicle-icon"></span
+                  ><span class="sm-none fs-400">Vehiculos</span>
+                </div></a
+              >
+            </li>
+            <li>
+              <a href="/vehiculo/create" class="clr-almost-red">
+                <div class="icon-container | flex align-center">
+                  <span class="icon-svg add-vehicle-icon"></span
+                  ><span class="sm-none fs-400">Agregar vehiculo</span>
+                </div></a
+              >
+            </li>
+          </ul>
+        </nav>
+        <footer class="footer-aside">
+          <a href="/logout">
+            <div class="icon-container | flex align-center">
+              <span class="icon-svg sign-out-icon"></span>
+              <span class="clr-soft-black sm-none">Cerrar Sesion</span>
+            </div>
+          </a>
+        </footer>
+      </aside>
+      <section class="section-main-container">
+        {% block content %} {% endblock %}
+      </section>
+    </main>
+  </body>
+</html>
