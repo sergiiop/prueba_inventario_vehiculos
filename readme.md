@@ -10,9 +10,13 @@ para el entorno virtual utilice
 py -m venv venv
 ```
 
+```
+pip install -r requirements.txt
+```
+
 crear un superusuario para poder acceder al sitio
 
-Funcionalidades implementadas:
+- Funcionalidades implementadas:
 
 Ver propietarios en el sistema
 
@@ -27,3 +31,6 @@ Actualizar informacion de un vehiculo
 Borrar informacion un propietario
 
 Borrar informacion un vehiculo
+
+- Funcionalidades no implementadas: 
+  Registro a nuevos usuarios administradores
