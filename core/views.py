@@ -89,17 +89,20 @@ def create_propietario(request):
             messages.info(request, 'Document taken')
             return redirect('create_propietario')
         else:
-            try:
-                form = FormPropietarios(request.POST)
-                new_propietario = form.save(commit=False)
-                new_propietario.save()
-                return redirect('view_propietarios')
-            except:
-                messages.info(request, 'Datos invalidos')
-                return redirect('create_propietario')
+            form = FormPropietarios(request.POST)
+            if form.is_valid():
+                try:
+                    form.save()
+                    return redirect('/propietarios/')
+                except:
+                    messages.info(request, 'Datos invalidos')
+                    return redirect('create_propietario')
+            else:
+                print(form.errors)
     else:
-        return render(request, 'create_propietario.html', {
-            'form': FormPropietarios
+        form = FormPropietarios()
+    return render(request, 'create_propietario.html', {
+        'form': FormPropietarios
         })
 
 @login_required(login_url='signin')
@@ -182,14 +185,14 @@ def create_vehiculo(request):
             messages.info(request, 'Placa ya existente')
             return redirect('vehiculo/create')
         else:
-            try:
-                form = FormVehiculo(request.POST)
-                new_vehiculo = form.save(commit=False)
-                new_vehiculo.save()
-                return redirect('view_vehiculos')
-            except:
-                messages.info(request)
-                return redirect('vehiculo/create')
+            form = FormVehiculo(request.POST)
+            if form.is_valid():
+                try:
+                    form.save()
+                    return redirect('view_vehiculos')
+                except:
+                    messages.info(request)
+                    return redirect('vehiculo/create')
     else:
         return render(request, 'create_vehiculo.html', {
             'form': FormVehiculo
