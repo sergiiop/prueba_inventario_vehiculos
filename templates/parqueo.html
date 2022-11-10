@@ -1,0 +1,20 @@
+{% extends 'layouts/base.html' %} {% block user %}
+<h1 class="ff-heading fs-500">{{user.username}}</h1>
+{% endblock %} {% block content %}
+<h1 class="fs-700">Vehiculos Registrados</h1>
+
+<section class="vehiculos-section">
+  <div class="grid | vehiculos-container">
+    <table class="table">
+      <tr>
+        <th>Vehiculo</th>
+        <th>Propietario</th>
+        <th>Fecha de Entrada</th>
+        <th>Acciones</th>
+      </tr>
+      {% for vehiculo in vehiculos %}
+      {% endfor %}
+    </table>
+  </div>
+</section>
+{% endblock %}
