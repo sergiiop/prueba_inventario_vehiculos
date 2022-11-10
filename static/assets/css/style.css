@@ -442,10 +442,10 @@ button-up .ls-none {
 
 /* aside */
 .aside-container {
-  position: relative;
-  padding-inline: clamp(1rem, 2vw, 3rem);
+  padding: clamp(1rem, 2vw, 3rem);
   box-shadow: 6px 0 4px -4px #999;
   width: 15%;
+  justify-content: space-between;
 }
 
 @media (min-width: 55em) {
@@ -458,7 +458,6 @@ button-up .ls-none {
 .aside-header-container {
   padding-block-start: clamp(1rem, 2vw, 3rem);
   gap: 1.5rem;
-  margin-block-end: 2rem;
 }
 
 .avatar-container {
@@ -486,10 +485,6 @@ button-up .ls-none {
 }
 
 /* aside navbar */
-
-.aside-navbar-container {
-  margin-block-start: 8rem;
-}
 
 .aside-navbar-container > ul {
   gap: 2rem;
@@ -536,10 +531,6 @@ button-up .ls-none {
   background: url('./../images/add-user-svgrepo-com.svg');
 }
 /* footer-aside */
-.footer-aside {
-  position: absolute;
-  bottom: 5rem;
-}
 
 .sign-out-icon {
   background-image: url('./../images/logout-svgrepo-com.svg');

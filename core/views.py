@@ -4,7 +4,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate
-from core.form import FormPropietarios, FormVehiculo
+from core.form import FormPropietarios, FormVehiculo,FormTicket
+import datetime
 
 from core.models import Propietarios, Vehiculos, Ticket
 
@@ -14,12 +15,21 @@ def index(request):
     user = request.user
     vehiculos = Vehiculos.objects.all()
     propietarios = Propietarios.objects.all()
-    propietarios_len = len(propietarios)
-    vehiculos_len = len(vehiculos)
+    tickets = Ticket.objects.filter(estado='Activo')
+    limit = True
+    if len(tickets) >= 7:
+        limit=False
+
+    print(len(tickets))
+    print(limit)
+    if request.method=='POST':
+        pass
     return render(request, 'index.html', {
         'user': user,
-        'propietarios_len': propietarios_len,
-        'vehiculos_len' : vehiculos_len
+        'propietarios': propietarios,
+        'vehiculos': vehiculos,
+        'tickets': tickets,
+        'limit': limit
         })
 
 # def signup(request):
@@ -224,10 +234,46 @@ def delete_vehiculo(request, vehiculo_id):
         vehiculo.delete()
         return redirect('index')
 
-@login_required(login_url='signin')
-def view_parqueo(request):
-    tikets = Ticket.objects.all()
-    if request.method=='POST':
-        pass
+def create_ticket(request):
+    if request.method == 'POST':
+        form = FormTicket(request.POST)
+        propietario_field = request.POST['propietario']
+        ticket= Ticket.objects.filter(propietario_id=propietario_field).filter(estado='Activo')
+        if ticket:
+            messages.info(request, 'Vehiculo ya registrado')
+            return redirect('ticket/create')
+        else:
+            if form.is_valid():
+                try:
+                    form.save()
+                    return redirect('index')
+                except:
+                    messages.info(request)
+                    return redirect('ticket/create')
+            messages.info(request)
+            return redirect('ticket/create')
+    else:
+        return render(request, 'create_ticket.html', {
+            'form': FormTicket
+        })
 
-    print(tikets)
+def registrar_salida(request, ticket_id):
+    if request.method == 'POST':
+        ticket = get_object_or_404(Ticket, pk=ticket_id)
+        now = datetime.datetime.now()
+        print('here')
+        try:
+            ticket.hora_salida = now
+            ticket.valor = 2000
+            ticket.estado = 'Terminado'
+            ticket.save()
+            print('success')
+            return redirect('index')
+        except:
+            print('Error')
+            return redirect('index')
+    else:
+        ticket = get_object_or_404(Ticket, pk=ticket_id)
+        return render(request, 'registrar_ticket.html', {
+            'ticket': ticket
+        })

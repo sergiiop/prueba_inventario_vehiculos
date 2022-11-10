@@ -1,5 +1,5 @@
 from django import forms
-from .models import Vehiculos,Propietarios
+from .models import Vehiculos,Propietarios, Ticket
 
 class FormVehiculo(forms.ModelForm):
     class Meta:
@@ -26,3 +26,9 @@ class FormPropietarios(forms.ModelForm):
                 field.widget.attrs['class'] += 'input-form-vehiculo'
             else:
                 field.widget.attrs['class'] = 'input-form-vehiculo'
+
+class FormTicket(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields= '__all__'
+        exclude=('estado','hora_entrada','hora_salida','valor')

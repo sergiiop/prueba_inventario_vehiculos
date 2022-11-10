@@ -1,0 +1,22 @@
+{% extends 'layouts/base.html' %} {% block user %}
+<h1 class="ff-heading fs-500">{{user.username}}</h1>
+{% endblock %} {% block content %}
+
+<h1 class="fs-700">Registrar Salida</h1>
+
+<section class="vehiculos-section">
+  <div class="form-container">
+    {% for message in messages %}
+    <div>
+      <h5>{{message}}</h5>
+    </div>
+    {% endfor %}
+    {{ticket}}
+    <form method="POST" class="flex formulario">
+      {% csrf_token %}
+      <button class="button-update">Registrar Salida</button>
+    </form>
+  </div>
+</section>
+
+{% endblock %}
