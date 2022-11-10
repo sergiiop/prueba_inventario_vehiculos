@@ -223,3 +223,7 @@ def delete_vehiculo(request, vehiculo_id):
     if request.method == 'POST':
         vehiculo.delete()
         return redirect('index')
+
+@login_required(login_url='signin')
+def view_parqueo(request):
+    

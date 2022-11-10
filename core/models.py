@@ -34,8 +34,19 @@ class Vehiculos(models.Model):
     año=models.CharField(max_length=4, null=False)
     color=models.CharField(max_length=20, null=False)
     propietario=models.ForeignKey(Propietarios, on_delete=models.CASCADE)
-    observaciones=models.TextField(blank=True)
     created_at=models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.propietario
+
+class Ticket(models.Model):
+    ESTADO_CHOICES = [
+        ('Activo', 'Activo'),
+        ('Terminado', 'Terminado')
+    ]
+    fecha=models.DateTimeField(auto_now_add=True)
+    propietario=models.ForeignKey(Propietarios, on_delete=models.CASCADE)
+    hora_entrada= models.TimeField()
+    hora_salida= models.TimeField(auto_now=False, auto_now_add=False)
+    valor=models.FloatField(null=True)
+    estado=models.CharField(max_length=15, choices=ESTADO_CHOICES, default='Activo')
