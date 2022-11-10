@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate
 from core.form import FormPropietarios, FormVehiculo
 
-from core.models import Propietarios, Vehiculos
+from core.models import Propietarios, Vehiculos, Ticket
 
 # Create your views here.
 @login_required(login_url='signin')
@@ -226,4 +226,8 @@ def delete_vehiculo(request, vehiculo_id):
 
 @login_required(login_url='signin')
 def view_parqueo(request):
-    
+    tikets = Ticket.objects.all()
+    if request.method=='POST':
+        pass
+
+    print(tikets)
