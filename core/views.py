@@ -267,7 +267,8 @@ def registrar_salida(request, ticket_id):
             d1 = datetime.timedelta(hours=now.hour, minutes=now.minute)
             d2 = datetime.timedelta(hours=ticket.hora_entrada.hour, minutes=ticket.hora_entrada.minute)
             resta = d1 - d2
-            total_hora = (resta.seconds*60*60) + 1
+            legible = resta.total_seconds()
+            total_hora = int(legible/60/60) + 1
             ticket.valor = total_hora*2000
             ticket.save()
             return redirect('view_ticket', ticket_id=ticket.id)
@@ -285,7 +286,9 @@ def view_ticket(request, ticket_id):
     d1 = datetime.timedelta(hours=ticket.hora_salida.hour, minutes=ticket.hora_salida.minute)
     d2 = datetime.timedelta(hours=ticket.hora_entrada.hour, minutes=ticket.hora_entrada.minute)
     resta = d1 - d2
-    total_hora = (resta.seconds*60*60) + 1
+    legible = resta.total_seconds()
+    total_hora = int(legible/60/60) + 1
+    
     return render(request, 'view_ticket.html', {
         'ticket': ticket,
         'hora_total': total_hora
