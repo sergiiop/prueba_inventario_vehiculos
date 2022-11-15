@@ -118,7 +118,7 @@ def create_propietario(request):
 @login_required(login_url='signin')
 def view_propietarios(request):
     user = request.user
-    propietarios = Propietarios.objects.all()
+    propietarios = Propietarios.objects.filter(documento__contains=request.GET.get('search', ''))
     if len(propietarios) == 0:
         return render(request, 'propietarios.html', {
             'user': user,
@@ -175,7 +175,7 @@ def vehiculo_propietario(request, propietario_id):
 
 def view_vehiculo(request):
     user = request.user
-    vehiculos = Vehiculos.objects.all()
+    vehiculos = Vehiculos.objects.filter(placa__contains=request.GET.get('search', ''))
     if len(vehiculos) == 0:
         return render(request, 'vehiculos.html', {
             'user': user,
@@ -240,8 +240,8 @@ def create_ticket(request):
         propietario_field = request.POST['propietario']
         ticket= Ticket.objects.filter(propietario_id=propietario_field).filter(estado='Activo')
         if ticket:
-            messages.info(request, 'Vehiculo ya registrado')
-            return redirect('ticket/create')
+            messages.info(request, 'El cliente ya esta en el parqueadero')
+            return redirect('ticket.create')
         else:
             if form.is_valid():
                 try:
@@ -249,9 +249,9 @@ def create_ticket(request):
                     return redirect('index')
                 except:
                     messages.info(request)
-                    return redirect('ticket/create')
+                    return redirect('ticket.create')
             messages.info(request)
-            return redirect('ticket/create')
+            return redirect('ticket.create')
     else:
         return render(request, 'create_ticket.html', {
             'form': FormTicket
@@ -261,19 +261,32 @@ def registrar_salida(request, ticket_id):
     if request.method == 'POST':
         ticket = get_object_or_404(Ticket, pk=ticket_id)
         now = datetime.datetime.now()
-        print('here')
         try:
             ticket.hora_salida = now
-            ticket.valor = 2000
             ticket.estado = 'Terminado'
+            d1 = datetime.timedelta(hours=now.hour, minutes=now.minute)
+            d2 = datetime.timedelta(hours=ticket.hora_entrada.hour, minutes=ticket.hora_entrada.minute)
+            resta = d1 - d2
+            total_hora = (resta.seconds*60*60) + 1
+            ticket.valor = total_hora*2000
             ticket.save()
-            print('success')
-            return redirect('index')
+            return redirect('view_ticket', ticket_id=ticket.id)
         except:
             print('Error')
-            return redirect('index')
+            return redirect('ticket_registrar')
     else:
         ticket = get_object_or_404(Ticket, pk=ticket_id)
         return render(request, 'registrar_ticket.html', {
             'ticket': ticket
         })
+
+def view_ticket(request, ticket_id):
+    ticket = get_object_or_404(Ticket, pk=ticket_id)
+    d1 = datetime.timedelta(hours=ticket.hora_salida.hour, minutes=ticket.hora_salida.minute)
+    d2 = datetime.timedelta(hours=ticket.hora_entrada.hour, minutes=ticket.hora_entrada.minute)
+    resta = d1 - d2
+    total_hora = (resta.seconds*60*60) + 1
+    return render(request, 'view_ticket.html', {
+        'ticket': ticket,
+        'hora_total': total_hora
+    })

@@ -1,0 +1,54 @@
+{% extends 'layouts/base.html' %} {% block user %}
+<h1 class="ff-heading fs-500">{{user.username}}</h1>
+{% endblock %} {% block content %}
+<h1 class="fs-700">Ticket # {{ticket.id}}</h1>
+
+<section class="vehiculos-section">
+  <div class="vehiculos-container">
+    <div class="wrapp-top">
+      <a href="{% url 'index' %}" class="clr-almost-red">
+        <div class="icon-container | flex align-center">
+          <span class="sm-none fs-400">Ir al Inicio</span>
+        </div>
+      </a>
+    </div>
+    <div>
+      <h1 class="title-factura">Factura</h1>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>Cliente</td>
+            <td>{{ticket.propietario}}</td>
+          </tr>
+          <tr>
+            <td>Placa del Automovil saliente</td>
+            <td>{{ticket.vehiculo.placa}}</td>
+          </tr>
+          <tr>
+            <td>Hora de ingreso</td>
+            <td>{{ticket.hora_entrada}}</td>
+          </tr>
+          <tr>
+            <td>Hora de Salida</td>
+            <td>{{ticket.hora_salida}}</td>
+          </tr>
+          <tr>
+            <td>Valor de tarifa</td>
+            <td>$2.000</td>
+          </tr>
+          <tr>
+            <td>Total de Horas</td>
+            <td>{{hora_total}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Valor total a pagar</td>
+            <td>$ {{ticket.valor}}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</section>
+{% endblock %}

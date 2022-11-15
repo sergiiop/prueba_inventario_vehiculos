@@ -1,7 +1,7 @@
 {% extends 'layouts/base.html' %} {% block user %}
 <h1 class="ff-heading fs-500">{{user.username}}</h1>
 {% endblock %} {% block content %}
-<h1 class="fs-700">Home</h1>
+<h1 class="fs-700">Parqueadero</h1>
 
 <section class="vehiculos-section">
   <div class="flex f-direction-column">
@@ -31,42 +31,48 @@
         </div>
       </article>
     </div>
-    {% if limit %}
-    <a href="{% url 'ticket.create' %}" class="clr-almost-red">
-      <div class="icon-container | flex align-center">
-        <span class="sm-none fs-400">Registrar entrada</span>
-      </div></a
-    >
-    {% endif %}
-
-    {% if not limit %}
-    <p>Ha llegado al limite!</p>
-    {% endif %}
-
+    <div class="wrapp-top">
+      {% if limit %}
+      <a href="{% url 'ticket.create' %}" class="clr-almost-red">
+        <div class="icon-container | flex align-center">
+          <span class="sm-none fs-400">Registrar entrada</span>
+        </div></a
+      >
+      {% endif %}
+  
+      {% if not limit %}
+      <p>El parqueadero a llegado al limite</p>
+      {% endif %}
+    </div>
     <div>
       <table class="table">
-        <tr>
-          <th>Vehiculo</th>
-          <th>Propietario</th>
-          <th>Hora de Entrada</th>
-          <th>Acciones</th>
-        </tr>
-        {% for ticket in tickets %}
+        <thead>
           <tr>
-            <th>
-              {{ ticket.vehiculo }}
-            </th>
-            <th>
-              {{ ticket.propietario }}
-            </th>
-            <th>
-              {{ ticket.hora_entrada }}
-            </th>
-            <th>
-              <a href="{% url 'ticket_registrar' ticket.id %}">Registrar Salida</a>
-            </th>
+            <th>Vehiculo</th>
+            <th>Propietario</th>
+            <th>Hora de entrada</th>
+            <th>Acciones</th>
           </tr>
-        {% endfor %}
+        </thead>
+        <tbody>
+          {% for ticket in tickets %}
+          <tr>
+              
+                <td>
+                  {{ ticket.vehiculo }}
+                </td>
+                <td>
+                  {{ ticket.propietario }}
+                </td>
+                <td>
+                  {{ ticket.hora_entrada }}
+                </td>
+                <td>
+                  <a href="{% url 'ticket_registrar' ticket.id %}">Registrar Salida</a>
+                </td>
+              </tr>
+            {% endfor %}
+        </tbody>
       </table>
     </div>
   </div>

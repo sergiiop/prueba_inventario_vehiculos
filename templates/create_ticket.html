@@ -12,7 +12,7 @@
   </div>
 
   <div>
-    <form method="POST" action="." class="form-create">
+    <form method="POST" action="{% url 'ticket.create' %}" class="form-create">
       {% csrf_token %} {{form.as_p}}
       <button class="button-update">Registrar Entrada</button>
     </form>

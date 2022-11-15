@@ -3,30 +3,42 @@
 {% endblock %} {% block content %}
 <h1 class="fs-700">Vehiculos Registrados</h1>
 
+<form class="search" method="GET" action="{% url 'view_vehiculos' %}">
+  <input class="search-bar" type="text" name="search" placeholder="Buscar Vehiculo por placa...">
+  <button class="btn btn-search">Buscar</button>
+</form>
+
 <section class="vehiculos-section">
   <div class="vehiculos-container">
-    <a href="/vehiculo/create" class="clr-almost-red">
-      <div class="icon-container | flex align-center">
-        <span class="icon-svg add-vehicle-icon"></span
-        ><span class="sm-none fs-400">Agregar vehiculo</span>
-      </div></a
-    >
+    <div class="wrapp-top">
+      <a href="/vehiculo/create" class="clr-almost-red">
+        <div class="icon-container | flex align-center">
+          <span class="icon-svg add-vehicle-icon"></span
+          ><span class="sm-none fs-400">Agregar vehiculo</span>
+        </div></a
+      >
+    </div>
     <div>
       <table class="table">
-        <tr>
-          <th>Vehiculo</th>
-          <th>Propietario</th>
-          <th>Color</th>
-          <th>Acciones</th>
-        </tr>
-        {% for vehiculo in vehiculos %}
-        <tr>
-          <th>{{vehiculo.marca}} - {{vehiculo.placa}}</th>
-          <th>{{vehiculo.propietario}}</th>
-          <th>{{vehiculo.color}}</th>
-          <th><a href="#">Actualizar Informacion</a></th>
-        </tr>
-        {% endfor %}
+        <thead>
+          <tr>
+            <th>Vehiculo</th>
+            <th>Propietario</th>
+            <th>Color</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for vehiculo in vehiculos %}
+          <tr>
+            <td>{{vehiculo.marca}} - {{vehiculo.placa}}</td>
+            <td>{{vehiculo.propietario}}</td>
+            <td>{{vehiculo.color}}</td>
+            <td><a href="#">Actualizar Informacion</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
       </table>
     </div>
   </div>

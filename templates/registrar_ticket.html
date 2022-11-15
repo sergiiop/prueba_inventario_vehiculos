@@ -11,7 +11,29 @@
       <h5>{{message}}</h5>
     </div>
     {% endfor %}
-    {{ticket}}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Propietario</th>
+          <th>Numero de placa</th>
+          <th>Hora de entrada</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+              <td>
+                {{ ticket.propietario }}
+              </td>
+              <td>
+                {{ ticket.vehiculo.placa }}
+              </td>
+              <td>
+                {{ ticket.hora_entrada }}
+              </td>
+            </tr>
+      </tbody>
+    </table>
+    
     <form method="POST" class="flex formulario">
       {% csrf_token %}
       <button class="button-update">Registrar Salida</button>

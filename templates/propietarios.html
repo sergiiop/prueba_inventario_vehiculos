@@ -3,13 +3,20 @@
 {% endblock %} {% block content %}
 <h1 class="fs-700">Propietarios Registrados</h1>
 
+<form class="search" method="GET" action="{% url 'view_propietarios' %}">
+  <input class="search-bar" type="text" name="search" placeholder="Buscar Propietario...">
+  <button class="btn btn-search">Buscar</button>
+</form>
+
 <section class="vehiculos-section">
-  <a href="/propietario/create" class="clr-almost-red">
-    <div class="icon-container | flex align-center">
-      <span class="icon-svg add-propietario-icon"></span
-      ><span class="sm-none fs-400">Agregar propietario</span>
-    </div>
-  </a>
+  <div class="wrapp-top">  
+    <a href="/propietario/create" class="clr-almost-red">
+      <div class="icon-container | flex align-center">
+        <span class="icon-svg add-propietario-icon"></span
+        ><span class="sm-none fs-400">Agregar propietario</span>
+      </div>
+    </a>
+  </div>
   <div class="grid | vehiculos-container">
     {% for propietario in propietarios %}
     <article
