@@ -32,3 +32,16 @@ class FormTicket(forms.ModelForm):
         model = Ticket
         fields= '__all__'
         exclude=('estado','hora_entrada','hora_salida','valor')
+
+    def __init__(self, *args, **kwards):
+        super(FormTicket, self).__init__(*args, **kwards)
+        self.fields['vehiculo'].queryset = Vehiculos.objects.none()
+
+        if 'propietario' in self.data:
+            try:
+                propietario_id = int(self.data.get('propietario'))
+                self.fields['vehiculo'].queryset = Vehiculos.objects.filter(propietario_id=propietario_id)
+            except (ValueError, TypeError):
+                pass # invalid input from the client; ignore and fallback to empty City queryset
+        elif self.instance.pk:
+            self.fields['vehiculo'].queryset = self.instance.propietario.vehiculo_set

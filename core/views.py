@@ -293,3 +293,9 @@ def view_ticket(request, ticket_id):
         'ticket': ticket,
         'hora_total': total_hora
     })
+
+def get_vehiculos(request):
+    data = json.loads(request.body)
+    propietario_id = data['id']
+    vehiculos = Vehiculos.objects.filter(propietario_id=propietario_id)
+    return JsonResponse(list(vehiculos.values('id', 'placa', 'modelo')), safe=False)

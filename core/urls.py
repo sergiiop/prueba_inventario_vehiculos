@@ -17,5 +17,6 @@ urlpatterns = [
     path('vehiculo_propietario/<int:propietario_id>', views.vehiculo_propietario, name='vehiculo_propietario'),
     path('ticket/<int:ticket_id>', views.view_ticket, name='view_ticket'),
     path('create/ticket/', views.create_ticket, name='ticket.create'),
-    path('registrar_salida/ticket/<int:ticket_id>', views.registrar_salida, name='ticket_registrar')
+    path('registrar_salida/ticket/<int:ticket_id>', views.registrar_salida, name='ticket_registrar'),
+    path('get_vehiculos', views.get_vehiculos, name='get_vehiculos')
 ]
